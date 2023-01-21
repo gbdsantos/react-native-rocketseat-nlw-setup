@@ -10,6 +10,8 @@ import {
 import { Home } from './src/screens/Home';
 import { Loading } from './src/components/Loading';
 
+import './src/lib/dayjs';
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
