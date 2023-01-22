@@ -7,8 +7,8 @@ import {
   Inter_800ExtraBold
 } from '@expo-google-fonts/inter';
 
-import { Home } from './src/screens/Home';
 import { Loading } from './src/components/Loading';
+import { Routes } from './src/routes';
 
 import './src/lib/dayjs';
 
@@ -28,7 +28,7 @@ export default function App() {
 
   return (
     <>
-      <Home />
+      <Routes />
       <StatusBar
         backgroundColor="transparent"
         barStyle="light-content"
