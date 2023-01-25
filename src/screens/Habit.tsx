@@ -10,6 +10,8 @@ import { ProgressBar } from "../components/ProgressBar";
 
 import { api } from "../lib/axios";
 
+import { generateProgressPercentage } from '../utils/generate-progress-percentage'
+
 interface Params {
   date: string;
 }
@@ -34,6 +36,10 @@ export function Habit() {
   const dayOfWeek = parsedDate.format('dddd');
   const dayAndMonth = parsedDate.format('DD/MM');
 
+  const habitsProgress = dayInfo?.possibleHabits.length
+    ? generateProgressPercentage(dayInfo.possibleHabits.length, completedHabits.length)
+    : 0;
+
   async function fetchHabits() {
     try {
       setLoading(true);
@@ -49,6 +55,14 @@ export function Habit() {
     }
     finally {
       setLoading(false);
+    }
+  }
+
+  async function handleTogglehabit(habitId: string) {
+    if (completedHabits.includes(habitId)) {
+      setCompletedHabits(prevState => prevState.filter(habit => habit !== habitId));
+    } else {
+      setCompletedHabits(prevState => [...prevState, habitId])
     }
   }
 
@@ -78,7 +92,7 @@ export function Habit() {
           {dayAndMonth}
         </Text>
 
-        <ProgressBar progress={30} />
+        <ProgressBar progress={habitsProgress} />
 
         <View className="mt-6">
           {
@@ -88,6 +102,7 @@ export function Habit() {
                 key={habit.id}
                 title={habit.title}
                 checked={completedHabits.includes(habit.id)}
+                onPress={() => handleTogglehabit(habit.id)}
               />
             ))
           }
