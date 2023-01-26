@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, ScrollView, Text, View } from "react-native";
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import clsx from "clsx";
 import dayjs from 'dayjs';
@@ -32,6 +32,8 @@ export function Habit() {
   const [dayInfo, setDayInfo] = useState<DayInfoProps | null>(null);
   const [completedHabits, setCompletedHabits] = useState<string[]>([]);
 
+  const { navigate } = useNavigation();
+
   const route = useRoute();
   const { date } = route.params as Params;
 
@@ -48,14 +50,16 @@ export function Habit() {
     try {
       setLoading(true);
 
-      const response = await api.get('/day', { params: { date } })
+      const response = await api.get('/day', { params: { date } });
 
-      setDayInfo(response.data)
-      setCompletedHabits(response.data.completedHabits);
+      setDayInfo(response.data);
+      setCompletedHabits(response.data.completedHabits ?? []);
 
     } catch (error) {
       console.log(error);
+
       Alert.alert('Ops', 'Não foi possível carregar as informações dos hábitos.')
+      navigate('home');
     }
     finally {
       setLoading(false);
