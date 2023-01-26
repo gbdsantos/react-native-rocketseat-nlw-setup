@@ -22,7 +22,7 @@ export function CheckBox({ checked = false, title, ...rest }: Props) {
             className="h-8 w-8 bg-green-500 rounded-lg items-center justify-center"
           >
             <Feather
-              color="colors.white"
+              color={colors.white}
               name="check"
               size={20}
             />
