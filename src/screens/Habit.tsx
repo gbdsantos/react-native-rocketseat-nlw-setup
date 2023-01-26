@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 
 import { BackButton } from "../components/BackButton";
 import { CheckBox } from "../components/CheckBox";
+import { HabitsEmpty } from "../components/HabitsEmpty";
 import { Loading } from "../components/Loading";
 import { ProgressBar } from "../components/ProgressBar";
 
@@ -96,15 +97,16 @@ export function Habit() {
 
         <View className="mt-6">
           {
-            dayInfo?.possibleHabits &&
-            dayInfo?.possibleHabits.map(habit => (
-              <CheckBox
-                key={habit.id}
-                title={habit.title}
-                checked={completedHabits.includes(habit.id)}
-                onPress={() => handleTogglehabit(habit.id)}
-              />
-            ))
+            dayInfo?.possibleHabits ?
+              dayInfo?.possibleHabits.map(habit => (
+                <CheckBox
+                  key={habit.id}
+                  title={habit.title}
+                  checked={completedHabits.includes(habit.id)}
+                  onPress={() => handleTogglehabit(habit.id)}
+                />
+              ))
+              : <HabitsEmpty />
           }
         </View>
       </ScrollView>
