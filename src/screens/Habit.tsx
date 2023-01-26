@@ -76,8 +76,6 @@ export function Habit() {
       console.log(error);
       Alert.alert('Ops', 'Não foi possível atualizar o status do hábito.');
     }
-
-
   }
 
   useEffect(() => {
